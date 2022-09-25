@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import { imageCode } from '@/api/login'
+import { imageCode, login } from '@/api/login'
 export default {
   name: 'Login',
   components: {
@@ -65,8 +65,10 @@ export default {
       passwordType: 'password',
       loginForm: {
         loginName: 'admin',
-        password: '111111',
-        code: ''
+        password: 'admin',
+        code: '',
+        clientToken: 'Math.random() * (100 - 1) + 1',
+        loginType: 0
       },
       rules: {
         loginName: [
@@ -74,7 +76,7 @@ export default {
         ],
         password: [
           { required: true, message: '密码不能为空', trigger: 'blur' },
-          {	min: 6, max: 16, message: '密码的长度在6-16位之间 ', trigger: 'blur' }
+          {	min: 5, max: 16, message: '密码的长度在6-16位之间 ', trigger: 'blur' }
         ],
         code: [
           { required: true, message: '验证码必填', trigger: 'blur' }
@@ -85,7 +87,7 @@ export default {
   },
 
   async created() {
-    const data = await imageCode(Math.random() * (100 - 1) + 1)
+    const data = await imageCode(this.loginForm.clientToken)
     this.src = data.config.url
   },
   methods: {
@@ -94,13 +96,15 @@ export default {
     },
     async onLoading() {
       try {
+        const data = await login(this.loginForm)
+        console.log(data)
         this.loading = true
       } finally {
         this.loading = false
       }
     },
     async yzm() {
-      const data = await imageCode(Math.random() * (100 - 1) + 1)
+      const data = await imageCode(this.loginForm.clientToken)
       this.src = data.config.url
     }
   }

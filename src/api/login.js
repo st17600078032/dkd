@@ -6,3 +6,11 @@ export function imageCode(clientToken) {
     method: 'GET'
   })
 }
+
+export function login(data) {
+  return request({
+    url: '/user-service/user/login',
+    method: 'POST',
+    data
+  })
+}
