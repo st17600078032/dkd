@@ -97,7 +97,13 @@ export default {
     async onLoading() {
       try {
         const data = await login(this.loginForm)
-        console.log(data)
+        console.log(data.data.msg)
+        if (data.data.msg === '验证码错误') {
+          alert('验证码错误')
+        }
+        if (data.data.msg === '登录成功') {
+          this.$router.push('/home')
+        }
         this.loading = true
       } finally {
         this.loading = false
