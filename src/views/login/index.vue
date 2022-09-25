@@ -32,6 +32,20 @@
         </span>
       </el-form-item>
 
+      <el-form-item prop="code">
+        <span class="svg-container">
+          <svg-icon icon-class="password" />
+        </span>
+        <el-input
+          v-model="loginForm.code"
+          placeholder="请输入验证码"
+          tabindex="2"
+          auto-complete="on"
+          style="width: 268px"
+        />
+        <span class="yzm"><img :src="src" style="float: right;" alt=""></span>
+      </el-form-item>
+
       <el-button type="text" :loading="loading" class="login-btn" @click="onLoading">登录</el-button>
 
     </el-form>
@@ -39,16 +53,20 @@
 </template>
 
 <script>
+import { imageCode } from '@/api/login'
 export default {
   name: 'Login',
   components: {
   },
+
   data() {
     return {
+      src: '',
       passwordType: 'password',
       loginForm: {
         loginName: 'admin',
-        password: '111111'
+        password: '111111',
+        code: ''
       },
       rules: {
         loginName: [
@@ -57,10 +75,18 @@ export default {
         password: [
           { required: true, message: '密码不能为空', trigger: 'blur' },
           {	min: 6, max: 16, message: '密码的长度在6-16位之间 ', trigger: 'blur' }
+        ],
+        code: [
+          { required: true, message: '验证码必填', trigger: 'blur' }
         ]
       },
       loading: false
     }
+  },
+
+  async created() {
+    const data = await imageCode(Math.random() * (100 - 1) + 1)
+    this.src = data.config.url
   },
   methods: {
     showPassword() {
@@ -169,6 +195,10 @@ $light_gray:#eee;
     -webkit-box-shadow: 0 3px 70px 0 rgb(30 111 72 / 35%);
     box-shadow: 0 3px 70px 0 rgb(30 111 72 / 35%);
     border-radius: 10px;
+    .yzm {
+      width: 130px;
+      height: 50px;
+    }
   }
 
   .svg-container {
