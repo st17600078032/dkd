@@ -43,7 +43,7 @@
           auto-complete="on"
           style="width: 268px"
         />
-        <span class="yzm"><img :src="src" style="float: right;" alt=""></span>
+        <span class="yzm" @click="yzm"><img :src="src" style="float: right;" alt=""></span>
       </el-form-item>
 
       <el-button type="text" :loading="loading" class="login-btn" @click="onLoading">登录</el-button>
@@ -98,6 +98,10 @@ export default {
       } finally {
         this.loading = false
       }
+    },
+    async yzm() {
+      const data = await imageCode(Math.random() * (100 - 1) + 1)
+      this.src = data.config.url
     }
   }
 }
