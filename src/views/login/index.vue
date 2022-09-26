@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import { imageCode, login } from '@/api/login'
+import { imageCode } from '@/api/login'
 export default {
   name: 'Login',
   components: {
@@ -67,7 +67,7 @@ export default {
         loginName: 'admin',
         password: 'admin',
         code: '',
-        clientToken: 'Math.random() * (100 - 1) + 1',
+        clientToken: '',
         loginType: 0
       },
       rules: {
@@ -86,30 +86,32 @@ export default {
     }
   },
 
-  async created() {
-    const data = await imageCode(this.loginForm.clientToken)
-    this.src = data.config.url
+  created() {
+    this.yzm()
   },
   methods: {
     showPassword() {
       this.passwordType === 'password' ? this.passwordType = '' : this.passwordType = 'password'
     },
     async onLoading() {
-      try {
-        const data = await login(this.loginForm)
-        console.log(data.data.msg)
-        if (data.data.msg === '验证码错误') {
-          alert('验证码错误')
-        }
-        if (data.data.msg === '登录成功') {
-          this.$router.push('/home')
-        }
-        this.loading = true
-      } finally {
-        this.loading = false
+      this.loading = true
+      await this.$store.dispatch('user/getToken', this.loginForm)
+      // debugger
+      const msg = this.$store.state.user.data.msg
+      if (msg === '验证码错误') {
+        this.$message.error('验证码错误')
+        this.yzm()
       }
+      if (msg === '登录成功') {
+        this.$router.push('/dashboard')
+      }
+      if (msg === '账户名或密码错误') {
+        this.$message.error('账户名或密码错误')
+      }
+      this.loading = false
     },
     async yzm() {
+      this.loginForm.clientToken = Math.random()
       const data = await imageCode(this.loginForm.clientToken)
       this.src = data.config.url
     }
