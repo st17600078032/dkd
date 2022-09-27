@@ -1,11 +1,10 @@
 #app {
   .main-container {
-    margin-left: $sideBarWidth;
     position: relative;
-    
   }
-
+  
   .sidebar-container {
+    margin-top: 60px;
     background-color: $menuBg;
     height: 100%;
     position: fixed;
