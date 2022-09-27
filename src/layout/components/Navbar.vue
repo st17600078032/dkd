@@ -44,7 +44,7 @@ export default {
   width: 100%;
   height: 60px;
   overflow: hidden;
-  position: relative;
+  position: fixed;
   background: blue;
   box-shadow: 0 1px 4px rgba(0,21,41,.08);
   background-image: url('~@/assets/common/backgroundone.png');
