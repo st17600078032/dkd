@@ -7,6 +7,9 @@ export default {
   mutations: {
     setToken(state, data) {
       state.data = data
+    },
+    removeToken(state, data) {
+      state.data.token = null
     }
   },
   actions: {

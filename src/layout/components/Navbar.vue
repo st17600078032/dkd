@@ -37,9 +37,9 @@ export default {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     },
-    async goout() {
-      await this.$store.dispatch('user/goout') // 这里不论写不写 await 登出方法都是同步的
-      this.$router.push(`/login`) // 跳到登录
+    goout() {
+      this.$store.commit('user/removeToken')
+      this.$router.push('/login')
     }
   }
 }
