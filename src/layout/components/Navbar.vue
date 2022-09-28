@@ -8,7 +8,7 @@
     </div>
 
     <div class="goout">
-      <span>退出</span>
+      <span @click="goout">退出</span>
       <i class="el-icon-caret-bottom" />
     </div>
 
@@ -27,6 +27,8 @@ export default {
       'avatar'
     ])
   },
+
+  created() {},
   methods: {
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
@@ -34,6 +36,10 @@ export default {
     async logout() {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+    },
+    async goout() {
+      await this.$store.dispatch('user/goout') // 这里不论写不写 await 登出方法都是同步的
+      this.$router.push(`/login`) // 跳到登录
     }
   }
 }
