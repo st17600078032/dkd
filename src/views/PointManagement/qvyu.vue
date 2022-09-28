@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">name:111a1</div>
+    <div class="dashboard-text">区域管理</div>
   </div>
 </template>
 
@@ -17,14 +17,15 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.dashboard {
-  &-container {
-    margin: 30px;
+  <style lang="scss" scoped>
+  .dashboard {
+    &-container {
+      margin: 30px;
+    }
+    &-text {
+      font-size: 30px;
+      line-height: 46px;
+    }
   }
-  &-text {
-    font-size: 30px;
-    line-height: 46px;
-  }
-}
-</style>
+  </style>
+

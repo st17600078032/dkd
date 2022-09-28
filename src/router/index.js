@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import approvalsRouter from './modules/approvals'
+import WorkOrderManagement from './modules/WorkOrderManagement'
+import PointManagement from './modules/PointManagement'
+import equipment from './modules/equipment'
 
-const asyncRoutes = [approvalsRouter]
+const asyncRoutes = [WorkOrderManagement, PointManagement, equipment]
 
 Vue.use(Router)
 
@@ -54,7 +56,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '帝可得', icon: 'el-icon-orange' }
+      meta: { title: '帝可得', icon: 'el-icon-s-home' }
     }]
   },
   // 404 page must be placed at the end !!!
