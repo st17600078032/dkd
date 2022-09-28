@@ -5,8 +5,11 @@ import PointManagement from './modules/PointManagement'
 import equipment from './modules/equipment'
 import personnel from './modules/personnel'
 import shop from './modules/shop'
+import strategy from './modules/strategy'
+import order from './modules/order'
+import Reconciliation from './modules/Reconciliation'
 
-const asyncRoutes = [WorkOrderManagement, PointManagement, equipment, personnel, shop]
+const asyncRoutes = [WorkOrderManagement, PointManagement, equipment, personnel, shop, strategy, order, Reconciliation]
 
 Vue.use(Router)
 
