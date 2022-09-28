@@ -3,8 +3,10 @@ import Router from 'vue-router'
 import WorkOrderManagement from './modules/WorkOrderManagement'
 import PointManagement from './modules/PointManagement'
 import equipment from './modules/equipment'
+import personnel from './modules/personnel'
+import shop from './modules/shop'
 
-const asyncRoutes = [WorkOrderManagement, PointManagement, equipment]
+const asyncRoutes = [WorkOrderManagement, PointManagement, equipment, personnel, shop]
 
 Vue.use(Router)
 
