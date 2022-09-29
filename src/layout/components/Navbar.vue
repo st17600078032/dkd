@@ -69,6 +69,7 @@ export default {
   background: blue;
   box-shadow: 0 1px 4px rgba(0,21,41,.08);
   background-image: url('~@/assets/common/backgroundone.png');
+  z-index: 9999999;
 
   .logo {
     width: 88px;
