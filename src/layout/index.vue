@@ -6,7 +6,9 @@
       <div :class="{'fixed-header':fixedHeader}" style="height:60px">
         <navbar />
       </div>
-      <app-main />
+      <div style="width:130%">
+        <app-main />
+      </div>
     </div>
   </div>
 </template>
