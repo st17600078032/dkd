@@ -3,8 +3,8 @@
     <img class="logo" src="@/assets/common/logoone.png" alt="">
 
     <div class="user">
-      <img src="@/assets/common/user.png" alt="">
-      <span class="user-text">欢迎您, admin</span>
+      <img src="../../assets/common/user.png" alt="">
+      <span class="user-text">欢迎您, {{ UserInfo.userName }}</span>
     </div>
 
     <div class="goout">
@@ -17,18 +17,33 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { getUserInfo } from '@/api/user'
 
 export default {
   components: {
   },
+  data() {
+    return {
+      UserInfo: {}
+    }
+  },
   computed: {
     ...mapGetters([
       'sidebar',
-      'avatar'
+      'avatar',
+      'userId'
     ])
   },
 
-  created() {},
+  async created() {
+    try {
+      const { data } = await getUserInfo(this.userId)
+      this.UserInfo = data
+      console.log(this.UserInfo)
+    } catch (error) {
+      console.log(error)
+    }
+  },
   methods: {
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')

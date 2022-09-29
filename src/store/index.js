@@ -18,10 +18,12 @@ const store = new Vuex.Store({
   plugins: [createPersistedState({
     reducer(state) {
       const token = state.user.data.token
+      const userId = state.user.data.userId
       return {
         user: {
           data: {
-            token: token
+            token: token,
+            userId: userId
           }
         }
       }
