@@ -5,3 +5,12 @@ export function getVms() {
     url: '/vm-service/policy'
   })
 }
+
+// 新增策略
+export function addVms(data) {
+  return request({
+    url: '/vm-service/policy',
+    method: 'POST',
+    data
+  })
+}

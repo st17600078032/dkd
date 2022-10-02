@@ -13,11 +13,11 @@
     </div>
 
     <div>
-      <el-button
-        icon="el-icon-circle-plus-outline"
+      <addList
         class="newBtn"
         type="danger"
-      >新建</el-button>
+        @qqq="qqsj"
+      />
     </div>
 
     <div class="table">
@@ -67,9 +67,13 @@
 <script>
 import { mapGetters } from 'vuex'
 import { getVms } from '@/api/strategy'
+import addList from './components/addList.vue'
 
 export default {
   name: 'Dashboard',
+  components: {
+    addList
+  },
   data() {
     return {
       input: '',
@@ -79,24 +83,27 @@ export default {
   computed: {
     ...mapGetters(['name'])
   },
-  async created() {
-    try {
-      const { data } = await getVms()
-      this.tableData.push(data)
-      console.log(this.tableData)
-    } catch (error) {
-      console.log(error)
-    }
+  created() {
+    this.qqsj()
   },
   methods: {
     handleClick(row) {
       console.log(row)
+    },
+    async qqsj() {
+      try {
+        const { data } = await getVms()
+        this.tableData.push(data)
+        console.log(this.tableData)
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }
 </script>
 
-    <style lang="scss" scoped>
+<style lang="scss" scoped>
 .dashboard {
   &-container {
     margin: 30px;
@@ -140,7 +147,6 @@ export default {
 .table {
   margin-top: 20px;
   width: 1400px;
-  height: 100%;
 background-color: red;
 }
 </style>
