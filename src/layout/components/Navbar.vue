@@ -39,7 +39,6 @@ export default {
     try {
       const { data } = await getUserInfo(this.userId)
       this.UserInfo = data
-      console.log(this.UserInfo)
     } catch (error) {
       console.log(error)
     }
