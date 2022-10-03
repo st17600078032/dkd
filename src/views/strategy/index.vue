@@ -23,7 +23,7 @@
     <div class="table">
       <el-table
         border:false
-        :data="tableData[0]"
+        :data="tableData"
         style="width: 100%"
         height="800px"
       >
@@ -56,7 +56,7 @@
           <template slot-scope="scope">
             <el-button type="text" size="small" @click="handleClick(scope.row)">查看详情</el-button>
             <el-button type="text" size="small">修改</el-button>
-            <el-button type="text" size="small">删除</el-button>
+            <el-button type="text" size="small" @click="delList">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -66,7 +66,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { getVms } from '@/api/strategy'
+import { getVms, delVms } from '@/api/strategy'
 import addList from './components/addList.vue'
 
 export default {
@@ -77,7 +77,8 @@ export default {
   data() {
     return {
       input: '',
-      tableData: []
+      tableData: [],
+      Id: 0
     }
   },
   computed: {
@@ -93,8 +94,18 @@ export default {
     async qqsj() {
       try {
         const { data } = await getVms()
-        this.tableData.push(data)
-        console.log(this.tableData)
+        this.tableData = data
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async delList() {
+      this.tableData.map((item, index) => {
+        this.Id = index
+      })
+      try {
+        await delVms(this.tableData[this.Id].policyId)
+        this.tableData.splice(this.Id, 1)
       } catch (error) {
         console.log(error)
       }

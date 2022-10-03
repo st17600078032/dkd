@@ -14,3 +14,11 @@ export function addVms(data) {
     data
   })
 }
+
+// 删除策略
+export function delVms(policyId) {
+  return request({
+    url: `/vm-service/policy/${policyId}`,
+    method: 'DELETE'
+  })
+}
