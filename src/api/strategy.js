@@ -28,11 +28,17 @@ export function searchVms(params) {
   return request({
     url: `/vm-service/policy/search`,
     method: 'GET',
-    // params: {
-    //   pageIndex: '',
-    //   pageSize: '',
-    //   pageName: ''
-    // }
     params
+  })
+}
+
+// 查看详情
+export function vmPolicy(innerCode) {
+  return request({
+    url: `/vm-service/policy/vmList/${innerCode}`,
+    params: {
+      pageIndex: 1,
+      pageSize: 10
+    }
   })
 }

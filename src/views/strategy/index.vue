@@ -54,7 +54,7 @@
           width="200"
         >
           <template slot-scope="scope">
-            <el-button type="text" size="small" @click="handleClick(scope.row)">查看详情</el-button>
+            <lookList :xqsj="tableData" @click="handleClick(scope.row)" />
             <el-button type="text" size="small">修改</el-button>
             <el-button type="text" size="small" @click="delList">删除</el-button>
           </template>
@@ -68,11 +68,13 @@
 import { mapGetters } from 'vuex'
 import { getVms, delVms, searchVms } from '@/api/strategy'
 import addList from './components/addList.vue'
+import lookList from './components/lookList.vue'
 
 export default {
   name: 'Dashboard',
   components: {
-    addList
+    addList,
+    lookList
   },
   data() {
     return {
@@ -115,7 +117,6 @@ export default {
         pageIndex: 1,
         pageSize: 10,
         policyName: this.input
-
       }
       try {
         const { data } = await searchVms(Obj)
