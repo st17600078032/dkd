@@ -38,7 +38,7 @@ export function vmPolicy(innerCode) {
     url: `/vm-service/policy/vmList/${innerCode}`,
     params: {
       pageIndex: 1,
-      pageSize: 10
+      pageSize: 20
     }
   })
 }

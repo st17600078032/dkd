@@ -29,7 +29,7 @@
       >
         <el-table-column
           fixed
-          prop="policyId"
+          type="index"
           label="序号"
           width="80"
         />
@@ -54,7 +54,7 @@
           width="200"
         >
           <template slot-scope="scope">
-            <lookList :xqsj="tableData" @click="handleClick(scope.row)" />
+            <lookList :current-row="scope.row" @click="handleClick(scope.row)" />
             <el-button type="text" size="small">修改</el-button>
             <el-button type="text" size="small" @click="delList">删除</el-button>
           </template>
@@ -101,7 +101,8 @@ export default {
         console.log(error)
       }
     },
-    async delList() {
+    async delList(row) {
+      console.log(row)
       this.tableData.map((item, index) => {
         this.Id = index
       })

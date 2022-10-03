@@ -4,9 +4,9 @@
 
     <el-dialog title="策略详情" :visible.sync="dialogTableVisible">
       <el-table :data="gridData">
-        <el-table-column property="date" label="序号" width="150" />
-        <el-table-column property="name" label="点位名称" width="200" />
-        <el-table-column property="address" label="设备编号" />
+        <el-table-column type="index" label="序号" width="150" />
+        <el-table-column property="nodeName" label="点位名称" width="200" />
+        <el-table-column property="innerCode" label="设备编号" />
       </el-table>
     </el-dialog>
   </span>
@@ -16,33 +16,28 @@
 import { vmPolicy } from '@/api/strategy'
 export default {
   props: {
-    xqsj: {
-      type: Array,
-      required: true
+    currentRow: {
+      type: Object,
+      default: () => ({})
     }
   },
   data() {
     return {
       gridData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
+        nodeName: '',
+        innerCode: ''
       }],
       dialogTableVisible: false,
-      dialogFormVisible: false,
-      index: 0
+      dialogFormVisible: false
     }
   },
   methods: {
     async tcxq() {
       this.dialogTableVisible = true
-      console.log(this.xqsj)
-      this.xqsj.forEach((item, index, arr) => {
-        this.index = index
-      })
       try {
-        const res = await vmPolicy(this.xqsj[this.index].policyId)
-        console.log(res)
+        const { data: { currentPageRecords }} = await vmPolicy(this.currentRow.policyId)
+        this.gridData = currentPageRecords
+        console.log(this.gridData)
       } catch (error) {
         console.log(error)
       }
