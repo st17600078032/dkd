@@ -22,3 +22,17 @@ export function delVms(policyId) {
     method: 'DELETE'
   })
 }
+
+// 搜索策略
+export function searchVms(params) {
+  return request({
+    url: `/vm-service/policy/search`,
+    method: 'GET',
+    // params: {
+    //   pageIndex: '',
+    //   pageSize: '',
+    //   pageName: ''
+    // }
+    params
+  })
+}

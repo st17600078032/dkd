@@ -9,7 +9,7 @@
         clearable
       />
 
-      <el-button type="primary" icon="el-icon-search">搜索</el-button>
+      <el-button type="primary" icon="el-icon-search" @click="searchList">搜索</el-button>
     </div>
 
     <div>
@@ -66,7 +66,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { getVms, delVms } from '@/api/strategy'
+import { getVms, delVms, searchVms } from '@/api/strategy'
 import addList from './components/addList.vue'
 
 export default {
@@ -106,6 +106,21 @@ export default {
       try {
         await delVms(this.tableData[this.Id].policyId)
         this.tableData.splice(this.Id, 1)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async searchList() {
+      const Obj = {
+        pageIndex: 1,
+        pageSize: 10,
+        policyName: this.input
+
+      }
+      try {
+        const { data } = await searchVms(Obj)
+        console.log(data)
+        this.tableData = data.currentPageRecords
       } catch (error) {
         console.log(error)
       }
