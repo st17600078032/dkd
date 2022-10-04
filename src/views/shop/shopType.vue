@@ -38,7 +38,7 @@
         >
           <template slot-scope="scope">
             <el-button type="text" size="small" @click="handleClick(scope.row)">修改</el-button>
-            <el-button type="text" size="small">删除</el-button>
+            <el-button type="text" size="small" @click="delshopType(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { getSkuClass } from '@/api/shop'
+import { getSkuClass, delSkuClass } from '@/api/shop'
 import addShopType from './components/addShopType.vue'
 export default {
   components: {
@@ -56,7 +56,8 @@ export default {
   data() {
     return {
       tableData: [{ className: '' }
-      ]
+      ],
+      index: 0
     }
   },
   created() {
@@ -69,6 +70,23 @@ export default {
     async qqsj() {
       const { data: { currentPageRecords }} = await getSkuClass()
       this.tableData = currentPageRecords
+    },
+    async delshopType(row) {
+      this.tableData.map((item, index) => {
+        this.index = index
+      })
+      try {
+        const { data } = await delSkuClass(row.classId)
+        if (data === true) {
+          // this.$nextTick(() => {
+          //   this.tableData.splice(row, 1)
+          // })
+          this.tableData.splice(row, 1)
+        }
+        this.qqsj()
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }

@@ -20,3 +20,11 @@ export function addSkuClass(data) {
     data
   })
 }
+
+// 删除商品类型
+export function delSkuClass(classId) {
+  return request({
+    url: `/vm-service/skuClass/${classId}`,
+    method: 'DELETE'
+  })
+}
