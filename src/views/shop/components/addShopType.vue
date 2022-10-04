@@ -9,7 +9,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button @click="qx">取 消</el-button>
         <el-button type="primary" @click="qr">确 定</el-button>
       </div>
     </el-dialog>
@@ -36,14 +36,20 @@ export default {
   methods: {
     async qr() {
       try {
-        await addSkuClass(this.form)
-        console.log(this.form.className)
-        this.currentPageRecords.push(this.form.className)
-        this.$emit('zdsx')
+        const { data } = await addSkuClass(this.form)
+        if (data === true) {
+          this.currentPageRecords.push(this.form.className)
+          this.$emit('zdsx')
+        }
       } catch (error) {
         console.log(error)
       }
       this.dialogFormVisible = false
+      this.form.className = ''
+    },
+    qx() {
+      this.dialogFormVisible = false
+      this.form.className = ''
     }
   }
 }
