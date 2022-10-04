@@ -75,10 +75,10 @@ export default {
 
 <style>
 .add {
-    color: #409eff;
+    color: #409eff !important;
     font-size: 12px;
 }
 .num {
-    width: 640px;
+    width: 100%;
 }
 </style>
