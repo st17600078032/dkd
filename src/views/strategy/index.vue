@@ -55,7 +55,7 @@
         >
           <template slot-scope="scope">
             <lookList :current-row="scope.row" @click="handleClick(scope.row)" />
-            <el-button type="text" size="small">修改</el-button>
+            <reviseList :current-row="scope.row" @click="handleClick(scope.row)" />
             <el-button type="text" size="small" @click="delList">删除</el-button>
           </template>
         </el-table-column>
@@ -69,12 +69,14 @@ import { mapGetters } from 'vuex'
 import { getVms, delVms, searchVms } from '@/api/strategy'
 import addList from './components/addList.vue'
 import lookList from './components/lookList.vue'
+import reviseList from './components/reviseList.vue'
 
 export default {
   name: 'Dashboard',
   components: {
     addList,
-    lookList
+    lookList,
+    reviseList
   },
   data() {
     return {
@@ -101,8 +103,7 @@ export default {
         console.log(error)
       }
     },
-    async delList(row) {
-      console.log(row)
+    async delList() {
       this.tableData.map((item, index) => {
         this.Id = index
       })
@@ -126,6 +127,9 @@ export default {
       } catch (error) {
         console.log(error)
       }
+    },
+    xgList(scope) {
+      console.log(scope)
     }
   }
 }

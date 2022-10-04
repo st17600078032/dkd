@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <el-button class="add" type="text" icon="el-icon-circle-plus-outline" @click="dialogFormVisible = true">新建</el-button>
+  <span>
+    <el-button class="add" type="text" @click="xgList">修改</el-button>
 
-    <el-dialog title="新增策略" :visible.sync="dialogFormVisible">
+    <el-dialog title="修改策略" :visible.sync="dialogFormVisible">
       <el-form :model="form" :rules="rules">
         <el-form-item label="策略名称" prop="policyName" :label-width="formLabelWidth">
           <el-input
@@ -22,13 +22,18 @@
         <el-button type="primary" @click="qr">确 定</el-button>
       </div>
     </el-dialog>
-  </div>
+  </span>
 </template>
 
 <script>
-import { addVms } from '@/api/strategy'
+import { reviseVms } from '@/api/strategy'
 export default {
-  name: 'AddList',
+  props: {
+    currentRow: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   data() {
     return {
       dialogTableVisible: false,
@@ -49,22 +54,20 @@ export default {
     handleChange() {
       this.num + 1
     },
-    qx() {
-      this.dialogFormVisible = false
-      this.form.discount = ''
-      this.form.policyName = ''
+    xgList() {
+      this.dialogFormVisible = true
+      this.form = this.currentRow
     },
     async qr() {
       try {
-        const { config: { data }} = await addVms(this.form)
-        this.addList.push(data)
-        this.$emit('qqq')
+        await reviseVms(this.currentRow)
+        this.dialogFormVisible = false
       } catch (error) {
         console.log(error)
       }
+    },
+    qx() {
       this.dialogFormVisible = false
-      this.form.discount = ''
-      this.form.policyName = ''
     }
   }
 }
@@ -72,8 +75,8 @@ export default {
 
 <style>
 .add {
-    color: #fff !important;
-    font-size: 16px;
+    color: #409eff;
+    font-size: 12px;
 }
 .num {
     width: 640px;

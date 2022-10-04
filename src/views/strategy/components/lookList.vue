@@ -37,7 +37,6 @@ export default {
       try {
         const { data: { currentPageRecords }} = await vmPolicy(this.currentRow.policyId)
         this.gridData = currentPageRecords
-        console.log(this.gridData)
       } catch (error) {
         console.log(error)
       }

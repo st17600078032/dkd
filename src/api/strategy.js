@@ -42,3 +42,12 @@ export function vmPolicy(innerCode) {
     }
   })
 }
+
+// 修改策略
+export function reviseVms(data) {
+  return request({
+    url: `/vm-service/policy/${data.policyId}`,
+    method: 'PUT',
+    data
+  })
+}
