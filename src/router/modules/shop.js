@@ -11,7 +11,7 @@ export default {
     {
       path: '/shop/shangpinleixing.vue',
       name: 'shangpinleixing',
-      component: () => import('@/views/shop/shangpinleixing.vue'),
+      component: () => import('@/views/shop/shopType.vue'),
       meta: {
         title: '商品类型'
       }
@@ -19,7 +19,7 @@ export default {
     {
       path: '/shop/shangpinguanli.vue',
       name: 'shangpinguanli',
-      component: () => import('@/views/shop/shangpinguanli.vue'),
+      component: () => import('@/views/shop/shopManage.vue'),
       meta: {
         title: '商品管理'
       }
