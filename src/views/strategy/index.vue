@@ -122,7 +122,6 @@ export default {
       }
       try {
         const { data } = await searchVms(Obj)
-        console.log(data)
         this.tableData = data.currentPageRecords
       } catch (error) {
         console.log(error)
