@@ -11,9 +11,7 @@
       <el-button type="primary" icon="el-icon-search">搜索</el-button>
     </div>
 
-    <div>
-      <el-button type="text" icon="el-icon-circle-plus-outline" class="newBtn">新建</el-button>
-    </div>
+    <addShopType @zdsx="qqsj" />
 
     <div>
       <el-table
@@ -29,7 +27,7 @@
           width="200"
         />
         <el-table-column
-          prop="name"
+          prop="className"
           label="商品类型名称"
           width="1000"
         />
@@ -49,25 +47,28 @@
 </template>
 
 <script>
+import { getSkuClass } from '@/api/shop'
+import addShopType from './components/addShopType.vue'
 export default {
-
+  components: {
+    addShopType
+  },
   data() {
     return {
-      tableData: [
-        {
-          date: '2016-05-02',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }
+      tableData: [{ className: '' }
       ]
     }
+  },
+  created() {
+    this.qqsj()
   },
   methods: {
     handleClick(row) {
       console.log(row)
+    },
+    async qqsj() {
+      const { data: { currentPageRecords }} = await getSkuClass()
+      this.tableData = currentPageRecords
     }
   }
 }

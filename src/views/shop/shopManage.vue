@@ -78,6 +78,7 @@
 </template>
 
 <script>
+
 export default {
 
   data() {
@@ -92,6 +93,7 @@ export default {
       }]
     }
   },
+
   methods: {
     handleClick(row) {
       console.log(row)
