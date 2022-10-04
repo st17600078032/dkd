@@ -73,7 +73,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .add {
     color: #409eff !important;
     font-size: 12px;
