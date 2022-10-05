@@ -37,7 +37,8 @@
           width="200"
         >
           <template slot-scope="scope">
-            <el-button type="text" size="small" @click="handleClick(scope.row)">修改</el-button>
+
+            <reviseShopType :table-data="tableData" :current-row="scope.row" @click="handleClick(scope.row)" />
             <el-button type="text" size="small" @click="delshopType(scope.row)">删除</el-button>
           </template>
         </el-table-column>
@@ -49,9 +50,11 @@
 <script>
 import { getSkuClass, delSkuClass } from '@/api/shop'
 import addShopType from './components/addShopType.vue'
+import reviseShopType from './components/reviseShopType.vue'
 export default {
   components: {
-    addShopType
+    addShopType,
+    reviseShopType
   },
   data() {
     return {

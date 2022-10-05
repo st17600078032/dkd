@@ -28,3 +28,13 @@ export function delSkuClass(classId) {
     method: 'DELETE'
   })
 }
+
+// 修改商品类型
+export function reviseClass(data) {
+  return request({
+    url: `/vm-service/skuClass/${data.classId}`,
+    method: 'PUT',
+    data
+  })
+}
+
