@@ -38,3 +38,11 @@ export function reviseClass(data) {
   })
 }
 
+// 搜索商品类型
+export function searchClass(params) {
+  return request({
+    url: `/vm-service/skuClass/search`,
+    method: 'GET',
+    params
+  })
+}

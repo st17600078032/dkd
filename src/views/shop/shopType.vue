@@ -3,12 +3,13 @@
     <div>
       <span class="text">商品类型搜索:</span>
       <el-input
+        v-model="input"
         class="input"
         placeholder="请输入"
         clearable
       />
 
-      <el-button type="primary" icon="el-icon-search">搜索</el-button>
+      <el-button type="primary" icon="el-icon-search" @click="searchClass">搜索</el-button>
     </div>
 
     <addShopType @zdsx="qqsj" />
@@ -48,7 +49,7 @@
 </template>
 
 <script>
-import { getSkuClass, delSkuClass } from '@/api/shop'
+import { getSkuClass, delSkuClass, searchClass } from '@/api/shop'
 import addShopType from './components/addShopType.vue'
 import reviseShopType from './components/reviseShopType.vue'
 export default {
@@ -60,7 +61,8 @@ export default {
     return {
       tableData: [{ className: '' }
       ],
-      index: 0
+      index: 0,
+      input: ''
     }
   },
   created() {
@@ -87,6 +89,19 @@ export default {
           this.tableData.splice(row, 1)
         }
         this.qqsj()
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async searchClass() {
+      const Obj = {
+        pageIndex: 1,
+        pageSize: 10,
+        className: this.input
+      }
+      try {
+        const { data } = await searchClass(Obj)
+        this.tableData = data.currentPageRecords
       } catch (error) {
         console.log(error)
       }
