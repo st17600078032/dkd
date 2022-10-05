@@ -58,3 +58,12 @@ export function getSku() {
     }
   })
 }
+
+// 商品列表搜索
+export function searchSku(params) {
+  return request({
+    url: `/vm-service/sku/search`,
+    method: 'GET',
+    params
+  })
+}

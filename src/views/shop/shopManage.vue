@@ -3,12 +3,13 @@
     <div>
       <span class="text">商品搜索:</span>
       <el-input
+        v-model="input"
         class="input"
         placeholder="请输入"
         clearable
       />
 
-      <el-button type="primary" icon="el-icon-search">搜索</el-button>
+      <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
     </div>
 
     <template>
@@ -78,7 +79,7 @@
 </template>
 
 <script>
-import { getSku } from '@/api/shop'
+import { getSku, searchSku } from '@/api/shop'
 export default {
   data() {
     return {
@@ -89,17 +90,30 @@ export default {
         unit: '',
         skuClass: {},
         skuImage: ''
-      }]
+      }],
+      input: ''
     }
   },
   async created() {
     const { data: { currentPageRecords }} = await getSku()
-    console.log(currentPageRecords)
     this.tableData = currentPageRecords
   },
   methods: {
     handleClick(row) {
       console.log(row)
+    },
+    async search() {
+      const Obj = {
+        pageIndex: 1,
+        pageSize: 100,
+        skuName: this.input
+      }
+      try {
+        const { data: { currentPageRecords }} = await searchSku(Obj)
+        this.tableData = currentPageRecords
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }
