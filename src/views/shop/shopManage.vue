@@ -29,37 +29,37 @@
           width="120"
         />
         <el-table-column
-          prop="name"
+          prop="brandName"
           label="商品名称"
           width="200"
         />
+        <el-table-column label="商品图片" width="200">
+          <template slot-scope="scope">
+            <el-image :src="scope.row.skuImage" class="img" style="height:50px;weight:50px" />
+          </template>
+        </el-table-column>>
         <el-table-column
-          prop="province"
-          label="商品图片"
-          width="200"
-        />
-        <el-table-column
-          prop="city"
+          prop="skuName"
           label="品牌"
           width="120"
         />
         <el-table-column
-          prop="address"
+          prop="unit"
           label="规格"
           width="120"
         />
         <el-table-column
-          prop="zip"
+          prop="price"
           label="商品价格"
           width="120"
         />
         <el-table-column
-          prop="zip"
+          prop="skuClass.className"
           label="商品类型"
           width="120"
         />
         <el-table-column
-          prop="zip"
+          prop="updateTime"
           label="创建日期"
           width="120"
         />
@@ -78,22 +78,25 @@
 </template>
 
 <script>
-
+import { getSku } from '@/api/shop'
 export default {
-
   data() {
     return {
       tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        province: '上海',
-        city: '普陀区',
-        address: '上海市普陀区金沙江路 1518 弄',
-        zip: 200333
+        updateTime: '',
+        brandName: '',
+        skuName: '',
+        unit: '',
+        skuClass: {},
+        skuImage: ''
       }]
     }
   },
-
+  async created() {
+    const { data: { currentPageRecords }} = await getSku()
+    console.log(currentPageRecords)
+    this.tableData = currentPageRecords
+  },
   methods: {
     handleClick(row) {
       console.log(row)
@@ -132,5 +135,8 @@ export default {
     font-size: 16px;
     margin-top: 50px;
     margin-bottom: 40px;
+}
+.img {
+  margin-left: 60px;
 }
 </style>

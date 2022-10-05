@@ -46,3 +46,15 @@ export function searchClass(params) {
     params
   })
 }
+
+// 商品列表
+export function getSku() {
+  return request({
+    url: `/vm-service/sku/search`,
+    method: 'GET',
+    params: {
+      pageIndex: 1,
+      pageSize: 1000
+    }
+  })
+}
