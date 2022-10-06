@@ -67,3 +67,12 @@ export function searchSku(params) {
     params
   })
 }
+
+// 修改商品
+export function reviseSku(data) {
+  return request({
+    url: `/vm-service/sku/${data.skuId}`,
+    method: 'PUT',
+    data
+  })
+}

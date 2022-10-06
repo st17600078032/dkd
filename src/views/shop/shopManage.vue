@@ -62,7 +62,7 @@
         <el-table-column
           prop="updateTime"
           label="创建日期"
-          width="120"
+          width="180"
         />
         <el-table-column
           fixed="right"
