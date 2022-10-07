@@ -75,12 +75,20 @@
         </el-table-column>
       </el-table>
     </div>
+
+    <template>
+      <fenye :total-page="totalPage" :page-index="Objs.pageIndex" :total-count="totalCount" @prePage="changePage" @nextPage="changePage" />
+    </template>
   </div>
 </template>
 
 <script>
 import { getSku, searchSku } from '@/api/shop'
+import fenye from '@/components/fenye.vue'
 export default {
+  components: {
+    fenye
+  },
   data() {
     return {
       tableData: [{
@@ -91,14 +99,25 @@ export default {
         skuClass: {},
         skuImage: ''
       }],
-      input: ''
+      Objs: {
+        pageIndex: '1',
+        pageSize: '10'
+      },
+      input: '',
+      totalPage: '0',
+      totalCount: ''
     }
   },
   async created() {
-    const { data: { currentPageRecords }} = await getSku()
-    this.tableData = currentPageRecords
+    this.qqsj()
   },
   methods: {
+    async qqsj() {
+      const { data } = await getSku(this.Objs)
+      this.tableData = data.currentPageRecords
+      this.totalPage = data.totalPage
+      this.totalCount = data.totalCount
+    },
     handleClick(row) {
       console.log(row)
     },
@@ -114,6 +133,10 @@ export default {
       } catch (error) {
         console.log(error)
       }
+    },
+    changePage(page) {
+      this.Objs.pageIndex = page
+      this.qqsj()
     }
   }
 }
