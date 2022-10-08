@@ -9,11 +9,20 @@
         clearable
       />
 
-      <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-search"
+        @click="search"
+      >搜索</el-button>
     </div>
 
     <template>
-      <el-button type="text" icon="el-icon-circle-plus-outline" class="newBtn">新建</el-button>
+      <el-button
+        type="text"
+        icon="el-icon-circle-plus-outline"
+        class="newBtn"
+      >新建
+      </el-button>
     </template>
 
     <div>
@@ -69,8 +78,17 @@
           label="操作"
           width="120"
         >
+          <!-- <template slot-scope="scope">
+            <el-button
+              type="text"
+              size="small"
+              @click="handleClick(scope.row)"
+            >修改</el-button>
+          </template> -->
           <template slot-scope="scope">
-            <el-button type="text" size="small" @click="handleClick(scope.row)">修改</el-button>
+            <reviseShopManage
+              @click="handleClick(scope.row)"
+            />
           </template>
         </el-table-column>
       </el-table>
@@ -85,9 +103,11 @@
 <script>
 import { getSku, searchSku } from '@/api/shop'
 import fenye from '@/components/fenye.vue'
+import reviseShopManage from './components/reviseShopManage.vue'
 export default {
   components: {
-    fenye
+    fenye,
+    reviseShopManage
   },
   data() {
     return {
