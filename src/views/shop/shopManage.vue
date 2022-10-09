@@ -87,6 +87,7 @@
           </template> -->
           <template slot-scope="scope">
             <reviseShopManage
+              :current-row="scope.row"
               @click="handleClick(scope.row)"
             />
           </template>
@@ -117,7 +118,8 @@ export default {
         skuName: '',
         unit: '',
         skuClass: {},
-        skuImage: ''
+        skuImage: '',
+        price: ''
       }],
       Objs: {
         pageIndex: '1',
@@ -162,7 +164,7 @@ export default {
 }
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .text {
   font-size: 14px;
   color: #606266;

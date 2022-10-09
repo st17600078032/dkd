@@ -3,7 +3,7 @@
     <el-button
       type="text"
       size="small"
-      @click="dialogFormVisible = true"
+      @click="xg"
     >修改</el-button>
 
     <el-dialog title="收货地址" :modal-append-to-body="false" :visible.sync="dialogFormVisible">
@@ -29,10 +29,16 @@
         </el-form-item>
 
         <el-form-item label="商品类型" :label-width="formLabelWidth">
-          <el-select v-model="form.classId" class="num" placeholder="请选择商品类型">
-            <el-option label="区域一" value="shanghai" />
-            <el-option label="区域二" value="beijing" />
-          </el-select>
+          <template>
+            <el-select v-model="form.classId" class="num" placeholder="请选择商品类型">
+              <el-option label="饮料" :value="value[0]" />
+              <el-option label="零食" :value="value[1]" />
+              <el-option label="食品" :value="value[2]" />
+              <el-option label="玩具" :value="value[3]" />
+              <el-option label="电子产品" :value="value[4]" />
+              <el-option label="首饰" :value="value[5]" />
+            </el-select>
+          </template>
         </el-form-item>
 
         <el-form-item label="规格" :label-width="formLabelWidth">
@@ -40,57 +46,70 @@
         </el-form-item>
 
         <el-form-item label="商品图片" style="margin-left:50px">
-          <el-upload
+          <img style="height:100px;border:1px solid #ccc" :src="form.skuImage" alt="">
+          <!-- <el-upload
+            class="avatar-uploader"
             action="https://jsonplaceholder.typicode.com/posts/"
-            list-type="picture-card"
-            :on-preview="handlePictureCardPreview"
-            :on-remove="handleRemove"
+            :show-file-list="false"
+            :on-success="handleAvatarSuccess"
+            :before-upload="beforeAvatarUpload"
           >
-            <i class="el-icon-plus" />
-          </el-upload>
-          <el-dialog :visible.sync="dialogVisible">
-            <img width="100%" src="form.skuImage" alt="">
-          </el-dialog>
+            <img v-if="imageUrl" :src="imageUrl" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon" />
+          </el-upload> -->
         </el-form-item>
 
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+        <el-button type="primary" @click="qr">确 定</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
 
 <script>
+import { reviseSku } from '@/api/shop'
 export default {
+  props: {
+    currentRow: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   data() {
     return {
       dialogTableVisible: false,
       dialogFormVisible: false,
       form: {
-        skuName: '可口可乐',
-        brandName: '可口可乐',
-        price: '1.25',
-        classId: '1',
-        unit: '660ml',
-        skuImage: 'http://lkd2-java.itheima.net/image/product1.png'
+        skuName: '',
+        brandName: '',
+        price: '',
+        classId: '',
+        unit: '',
+        skuImage: ''
       },
       formLabelWidth: '120px',
-      dialogVisible: false
-
+      dialogVisible: false,
+      value: [1, 2, 3, 4, 5, 6]
     }
   },
   methods: {
     handleChange(value) {
       console.log(value)
     },
-    handleRemove(file, fileList) {
-      console.log(file, fileList)
+    xg() {
+      this.form = this.currentRow
+      console.log(this.currentRow)
+      this.dialogFormVisible = true
     },
-    handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.url
-      this.dialogVisible = true
+    async qr() {
+      await reviseSku(this.currentRow)
+      console.log(this.currentRow)
+      if (this.form.classId === this.value) {
+        this.value = '["饮料","零食","食品","玩具","电子产品","首饰"]'
+      }
+      this.dialogFormVisible = false
     }
   }
 }
